@@ -1,0 +1,51 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+
+# PyBuilder
+target/
+
+# Buildozer
+.buildozer/
+bin/
+
+# macOS
+.DS_Store
+
+# Android Studio / Gradle
+.gradle/
+.idea/
+local.properties
+*.iml
+
+# VSCode
+.vscode/
+
+# Colab
+sample_data/

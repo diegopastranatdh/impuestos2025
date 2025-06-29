@@ -1,1 +1,36 @@
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential ccache libffi-dev libssl-dev \
+          libsqlite3-dev zlib1g-dev libjpeg-dev libfreetype6-dev \
+          libpng-dev openjdk-17-jdk unzip zip git python3-pip
+        pip install --upgrade pip Cython buildozer
+
+    - name: Build APK
+      run: |
+        buildozer android debug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug.apk
+        path: bin/*.apk
 

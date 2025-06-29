@@ -1,2 +1,2 @@
-# impuestos2025
-App Kivy para calcular ReteICA, ReteIVA, Avisos y Sobretasa Bomberil.
+# Impuestos 2025
+App en Kivy para calcular impuestos y retenciones.

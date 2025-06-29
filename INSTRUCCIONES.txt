@@ -1,0 +1,20 @@
+
+PASOS PARA COMPILAR TU APP ANDROID CON GOOGLE COLAB:
+
+1. Abre Google Colab en: https://colab.research.google.com/
+2. Crea un nuevo notebook (Archivo > Nuevo cuaderno)
+3. Sube estos archivos a la sesión de Colab:
+   - main.py
+   - estructura_embebida.py
+   - buildozer.spec
+4. Instala buildozer (ejecuta en una celda):
+   !apt update
+   !apt install -y python3-pip zip unzip openjdk-17-jdk
+   !pip install buildozer
+
+5. Compila la app con:
+   !buildozer -v android debug
+
+6. Al finalizar, descarga el archivo APK desde la carpeta /bin/
+
+Nota: este proceso solo funciona en entornos que soporten compilación (Linux o entornos virtualizados).

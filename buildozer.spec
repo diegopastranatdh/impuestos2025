@@ -9,6 +9,12 @@ version = 0.1
 requirements = python3,kivy
 orientation = portrait
 fullscreen = 1
+source.main = principal.py
+android.permissions = INTERNET
+android.api = 33
+android.sdk = 24
+android.ndk = 23b
+android.arch = armeabi-v7a
 
 [buildozer]
 log_level = 2

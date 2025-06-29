@@ -15,7 +15,7 @@ source.main = principal.py
 android.permissions = INTERNET
 xandroid.api = 33
 xandroid.ndk = 23b
-android.arch = armeabi-v7a
+android.archs = armeabi-v7a
 
 [buildozer]
 log_level = 2

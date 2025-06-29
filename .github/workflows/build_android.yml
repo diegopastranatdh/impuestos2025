@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Android Build
 
 on:
   push:
@@ -8,39 +8,41 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04  # ubuntu-latest puede dar problemas con versiones nuevas
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout repo
+    - name: 📥 Clonar repositorio
       uses: actions/checkout@v3
 
-    - name: Set up Python
+    - name: 🐍 Configurar Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.11
 
-    - name: Install dependencies
+    - name: 🛠️ Instalar dependencias del sistema
       run: |
         sudo apt update
-        sudo apt install -y build-essential ccache libffi-dev libssl-dev \
-          libsqlite3-dev zlib1g-dev libjpeg-dev libfreetype6-dev \
-          libpng-dev openjdk-17-jdk unzip zip git python3-pip curl
-        pip install --upgrade pip Cython buildozer
+        sudo apt install -y zip unzip openjdk-11-jdk python3-pip python3-setuptools python3-wheel git-core libncurses5 libstdc++6 libffi-dev libssl-dev ccache libsqlite3-dev libpng-dev libfreetype6-dev liblcms2-dev libtiff5-dev libjpeg-dev zlib1g-dev
 
-    - name: Fix network issue - download Apache ANT manually if needed
+    - name: ⚙️ Instalar buildozer
       run: |
-        mkdir -p ~/.buildozer/android/platform/apache-ant-1.9.4
-        curl -L -o ant.tar.gz https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.tar.gz
-        tar -xzf ant.tar.gz -C ~/.buildozer/android/platform/
-        mv ~/.buildozer/android/platform/apache-ant-1.9.4-bin ~/.buildozer/android/platform/apache-ant-1.9.4
+        python3 -m pip install --upgrade pip
+        pip install buildozer cython
 
-    - name: Build APK
+    - name: 🧱 Instalar Apache Ant 1.9.4
+      run: |
+        mkdir -p ~/.buildozer/android/platform
+        cd ~/.buildozer/android/platform
+        wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.zip
+        unzip apache-ant-1.9.4-bin.zip
+        mv apache-ant-* apache-ant-1.9.4
+
+    - name: 🏗️ Compilar APK
       run: |
         buildozer android debug
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
+    - name: 📦 Subir APK generado
+      uses: actions/upload-artifact@v3
       with:
         name: app-debug.apk
         path: bin/*.apk
-

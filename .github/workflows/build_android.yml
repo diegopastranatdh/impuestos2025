@@ -11,38 +11,37 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: 📥 Clonar repositorio
-      uses: actions/checkout@v3
+      - name: 📥 Clonar repositorio
+        uses: actions/checkout@v4
 
-    - name: 🐍 Configurar Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.11
+      - name: 🐍 Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
 
-    - name: 🛠️ Instalar dependencias del sistema
-      run: |
-        sudo apt update
-        sudo apt install -y zip unzip openjdk-11-jdk python3-pip python3-setuptools python3-wheel git-core libncurses5 libstdc++6 libffi-dev libssl-dev ccache libsqlite3-dev libpng-dev libfreetype6-dev liblcms2-dev libtiff5-dev libjpeg-dev zlib1g-dev
+      - name: 🛠️ Instalar dependencias del sistema
+        run: |
+          sudo apt update
+          sudo apt install -y zip unzip openjdk-11-jdk python3-pip python3-setuptools python3-wheel git-core libncurses5 libstdc++6 libffi-dev libssl-dev ccache libsqlite3-dev libpng-dev libfreetype6-dev liblcms2-dev libtiff5-dev libjpeg-dev zlib1g-dev
 
-    - name: ⚙️ Instalar buildozer
-      run: |
-        python3 -m pip install --upgrade pip
-        pip install buildozer cython
+      - name: ⚙️ Instalar Buildozer
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install buildozer cython
 
-    - name: 🧱 Instalar Apache Ant 1.9.4
-      run: |
-        mkdir -p ~/.buildozer/android/platform
-        cd ~/.buildozer/android/platform
-        wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.zip
-        unzip apache-ant-1.9.4-bin.zip
-        mv apache-ant-* apache-ant-1.9.4
+      - name: 🧱 Instalar Apache Ant 1.9.4
+        run: |
+          mkdir -p ~/.buildozer/android/platform
+          cd ~/.buildozer/android/platform
+          wget https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.zip
+          unzip apache-ant-1.9.4-bin.zip
+          # NO usar mv, ya viene bien estructurado
 
-    - name: 🏗️ Compilar APK
-      run: |
-        buildozer android debug
-        
-    - name: 📦 Subir APK generado
-      uses: actions/upload-artifact@v4  # ✅ VÁLIDO
-      with:
-       name: app-debug.apk
-       path: bin/*.apk
+      - name: 🏗️ Compilar APK
+        run: buildozer android debug
+
+      - name: 📦 Subir APK generado
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug.apk
+          path: bin/*.apk

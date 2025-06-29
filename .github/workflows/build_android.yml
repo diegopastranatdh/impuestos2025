@@ -40,9 +40,9 @@ jobs:
     - name: 🏗️ Compilar APK
       run: |
         buildozer android debug
-
+        
     - name: 📦 Subir APK generado
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # ✅ VÁLIDO
       with:
-        name: app-debug.apk
-        path: bin/*.apk
+       name: app-debug.apk
+       path: bin/*.apk

@@ -11,6 +11,7 @@ orientation = portrait
 fullscreen = 1
 source.main = principal.py
 android.permissions = INTERNET
+android.accept_sdk_license = True
 android.api = 33
 android.sdk = 24
 android.ndk = 23b

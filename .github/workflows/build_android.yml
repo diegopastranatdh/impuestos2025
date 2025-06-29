@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04  # ubuntu-latest puede dar problemas con versiones nuevas
 
     steps:
     - name: Checkout repo
@@ -17,19 +17,22 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.10'
+        python-version: 3.10
 
     - name: Install dependencies
       run: |
         sudo apt update
         sudo apt install -y build-essential ccache libffi-dev libssl-dev \
           libsqlite3-dev zlib1g-dev libjpeg-dev libfreetype6-dev \
-          libpng-dev openjdk-17-jdk unzip zip git python3-pip
+          libpng-dev openjdk-17-jdk unzip zip git python3-pip curl
         pip install --upgrade pip Cython buildozer
 
-    - name: Initialize buildozer
+    - name: Fix network issue - download Apache ANT manually if needed
       run: |
-        if [ ! -f buildozer.spec ]; then buildozer init; fi
+        mkdir -p ~/.buildozer/android/platform/apache-ant-1.9.4
+        curl -L -o ant.tar.gz https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.tar.gz
+        tar -xzf ant.tar.gz -C ~/.buildozer/android/platform/
+        mv ~/.buildozer/android/platform/apache-ant-1.9.4-bin ~/.buildozer/android/platform/apache-ant-1.9.4
 
     - name: Build APK
       run: |
@@ -40,4 +43,3 @@ jobs:
       with:
         name: app-debug.apk
         path: bin/*.apk
-

@@ -27,6 +27,10 @@ jobs:
           libpng-dev openjdk-17-jdk unzip zip git python3-pip
         pip install --upgrade pip Cython buildozer
 
+    - name: Initialize buildozer (if needed)
+      run: |
+        if [ ! -f buildozer.spec ]; then buildozer init; fi
+
     - name: Build APK
       run: |
         buildozer android debug
@@ -36,4 +40,3 @@ jobs:
       with:
         name: app-debug.apk
         path: bin/*.apk
-

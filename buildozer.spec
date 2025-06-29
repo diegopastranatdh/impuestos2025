@@ -9,12 +9,14 @@ version = 0.1
 requirements = python3,kivy
 orientation = portrait
 fullscreen = 1
+android.minapi = 21
+android.target = android-33
+android.minapi = 21
+android.target = android-33
 source.main = principal.py
 android.permissions = INTERNET
-android.accept_sdk_license = True
-android.api = 33
-android.sdk = 24
-android.ndk = 23b
+xandroid.api = 33
+xandroid.ndk = 23b
 android.arch = armeabi-v7a
 
 [buildozer]
